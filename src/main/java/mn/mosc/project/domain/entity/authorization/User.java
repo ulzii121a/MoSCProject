@@ -16,6 +16,8 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBVersionAttribute;
 public class User {
     private String id;
     private String userName;
+    private String email;
+    private Boolean isLocked;
     private Role role;
     private Long version;
 
@@ -36,6 +38,25 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    @DynamoDBAttribute(attributeName = "email")
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.BOOL)
+    @DynamoDBAttribute(attributeName = "isLocked")
+    public Boolean isLocked() {
+        return isLocked;
+    }
+
+    public void setLocked(Boolean locked) {
+        isLocked = locked;
     }
 
     @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.M)
