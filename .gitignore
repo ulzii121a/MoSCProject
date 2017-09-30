@@ -1,0 +1,21 @@
+*.iml
+*.ipr
+*.iws
+*.log
+.classpath
+.project
+target/
+build/
+logs/
+node*/
+.idea/
+.gradle/
+coverage/
+classes/
+out/
+
+# Primer config directory - Do not remove and leave as the last line in .gitignore
+!.primer
+
+# Ignore Mac DS_Store finder files
+.DS_Store
