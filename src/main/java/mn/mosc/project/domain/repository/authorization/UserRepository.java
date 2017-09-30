@@ -11,6 +11,8 @@ import com.amazonaws.util.CollectionUtils;
 import mn.mosc.project.domain.entity.authorization.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -18,6 +20,7 @@ import java.util.List;
  * created by ubulgan on 9/29/17
  */
 
+@Component
 public class UserRepository {
     private final DynamoDBMapper dynamoDBMapper;
     private final AmazonDynamoDB dynamoDBClient;
@@ -25,6 +28,7 @@ public class UserRepository {
 
     private static final Log LOGGER = LogFactory.getLog(UserRepository.class);
 
+    @Autowired
     public UserRepository(DynamoDBMapper dynamoDBMapper, AmazonDynamoDB dynamoDBClient) {
         this.dynamoDBMapper = dynamoDBMapper;
         this.dynamoDBClient = dynamoDBClient;
