@@ -1,14 +1,10 @@
 package mn.mosc.project.domain.entity.order;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperFieldModel;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTyped;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBVersionAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import mn.mosc.project.domain.entity.authorization.User;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * created by loya on 9/29/17
@@ -16,6 +12,7 @@ import java.util.Date;
 @DynamoDBTable(tableName = "ORDER")
 public class Order {
     private String id;
+    private OrderDetail orderDetailId;
     private String orderName;
     private Date orderDate;
     private User user;
@@ -28,6 +25,15 @@ public class Order {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @DynamoDBRangeKey(attributeName = "")
+    public OrderDetail getOrderDetailId() {
+        return orderDetailId;
+    }
+
+    public void setOrderDetailId(OrderDetail orderDetailId) {
+        this.orderDetailId = orderDetailId;
     }
 
     @DynamoDBAttribute(attributeName = "orderName")
