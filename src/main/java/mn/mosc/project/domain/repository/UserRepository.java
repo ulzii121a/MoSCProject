@@ -14,6 +14,7 @@ import java.util.List;
 /**
  * created by ubulgan on 9/29/17
  */
+
 public class UserRepository {
     private final DynamoDBMapper dynamoDBMapper;
     private final AmazonDynamoDB dynamoDBClient;
