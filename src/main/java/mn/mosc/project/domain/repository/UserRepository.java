@@ -14,6 +14,7 @@ import java.util.List;
 /**
  * created by ubulgan on 9/29/17
  */
+
 public class UserRepository {
     private final DynamoDBMapper dynamoDBMapper;
     private final AmazonDynamoDB dynamoDBClient;
@@ -47,6 +48,9 @@ public class UserRepository {
 
     void putUser(User User) {
         try {
+            dynamoDBMapper.save(User);
+        } catch (ResourceNotFoundException resourceNotFoundException) {
+            createTable();
             dynamoDBMapper.save(User);
         } catch (Exception e) {
             String errorMessage = String.format("Exception in UserAdapter.putUser: %s", e.getMessage());
