@@ -49,6 +49,9 @@ public class UserRepository {
     void putUser(User User) {
         try {
             dynamoDBMapper.save(User);
+        } catch (ResourceNotFoundException resourceNotFoundException) {
+            createTable();
+            dynamoDBMapper.save(User);
         } catch (Exception e) {
             String errorMessage = String.format("Exception in UserAdapter.putUser: %s", e.getMessage());
             System.err.println(errorMessage);

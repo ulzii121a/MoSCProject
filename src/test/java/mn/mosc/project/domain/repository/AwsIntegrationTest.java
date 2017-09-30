@@ -1,10 +1,13 @@
 package mn.mosc.project.domain.repository;
 
+import static junit.framework.TestCase.assertNotNull;
+
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import mn.mosc.project.domain.entity.User;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -13,6 +16,7 @@ import org.junit.Test;
 public class AwsIntegrationTest {
 
     private UserRepository userRepository;
+    private static final String userId = "user1";
 
     @Before
     public void setup() {
@@ -27,11 +31,17 @@ public class AwsIntegrationTest {
 
     @Test
     public void getUser() {
-        User user = userRepository.getUser("user1");
+        User user = userRepository.getUser(userId);
+        System.out.println(user);
+        assertNotNull(user);
     }
 
-    @Test
+    @Ignore
     public void putUser() {
         User user = new User();
+        user.setId(userId);
+        user.setUserName("Test User");
+
+        userRepository.putUser(user);
     }
 }
