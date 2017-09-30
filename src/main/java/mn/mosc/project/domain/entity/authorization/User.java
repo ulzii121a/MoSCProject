@@ -1,6 +1,11 @@
 package mn.mosc.project.domain.entity.authorization;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperFieldModel;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTyped;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBVersionAttribute;
 
 /**
  * created by ubulgan on 9/29/17
@@ -8,7 +13,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
 @DynamoDBTable(tableName = "USER")
 public class User {
-    private String id;
     private String userName;
     private String email;
     private Boolean isLocked;
@@ -16,15 +20,6 @@ public class User {
     private Long version;
 
     @DynamoDBHashKey(attributeName = "id")
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    @DynamoDBAttribute(attributeName = "userName")
     public String getUserName() {
         return userName;
     }
@@ -52,6 +47,7 @@ public class User {
         isLocked = locked;
     }
 
+    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.M)
     @DynamoDBAttribute(attributeName = "role")
     public Role getRole() {
         return role;
@@ -74,8 +70,10 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id='" + id + '\'' +
-                ", userName='" + userName + '\'' +
+                "userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", isLocked=" + isLocked +
+                ", role=" + role +
                 ", version=" + version +
                 '}';
     }

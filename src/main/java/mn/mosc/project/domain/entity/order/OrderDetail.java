@@ -1,6 +1,12 @@
 package mn.mosc.project.domain.entity.order;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperFieldModel;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTyped;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBVersionAttribute;
 import mn.mosc.project.domain.entity.inventory.Product;
 
 /**
@@ -24,6 +30,7 @@ public class OrderDetail {
         this.id = id;
     }
 
+    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.M)
     @DynamoDBHashKey(attributeName = "order")
     public Order getOrder() {
         return order;
@@ -33,6 +40,7 @@ public class OrderDetail {
         this.order = order;
     }
 
+    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.M)
     @DynamoDBRangeKey(attributeName = "product")
     public Product getProduct() {
         return product;

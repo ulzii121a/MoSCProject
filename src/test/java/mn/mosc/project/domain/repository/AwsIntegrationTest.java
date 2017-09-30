@@ -1,5 +1,7 @@
 package mn.mosc.project.domain.repository;
 
+import static junit.framework.TestCase.assertNotNull;
+
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
@@ -11,8 +13,6 @@ import org.junit.Test;
 
 import java.io.InputStream;
 import java.util.Properties;
-
-import static junit.framework.TestCase.assertNotNull;
 
 /**
  * created by ubulgan on 9/29/17
@@ -50,8 +50,7 @@ public class AwsIntegrationTest {
     @Ignore
     public void putUser() {
         User user = new User();
-        user.setId(userId);
-        user.setUserName("Test User");
+        user.setUserName(userId);
 
         userRepository.putUser(user);
     }

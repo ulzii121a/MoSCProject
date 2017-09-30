@@ -3,11 +3,14 @@ package mn.mosc.project.domain.repository.authorization;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.model.ResourceNotFoundException;
 import com.amazonaws.util.CollectionUtils;
 import mn.mosc.project.domain.entity.authorization.User;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.List;
 
@@ -20,6 +23,8 @@ public class UserRepository {
     private final AmazonDynamoDB dynamoDBClient;
     private static final Long dynamoDBInitialThroughput = 25L;
 
+    private static final Log LOGGER = LogFactory.getLog(UserRepository.class);
+
     public UserRepository(DynamoDBMapper dynamoDBMapper, AmazonDynamoDB dynamoDBClient) {
         this.dynamoDBMapper = dynamoDBMapper;
         this.dynamoDBClient = dynamoDBClient;
@@ -28,7 +33,7 @@ public class UserRepository {
     public User getUser(String id) {
         try {
             User partitionKey = new User();
-            partitionKey.setId(id);
+            partitionKey.setUserName(id);
 
             DynamoDBQueryExpression<User> queryExpression = new DynamoDBQueryExpression<User>()
                     .withHashKeyValues(partitionKey);
@@ -41,20 +46,34 @@ public class UserRepository {
             return null;
         } catch (Exception e) {
             String errorMessage = String.format("Exception in UserAdapter.getUser: %s", e.getMessage());
-            System.err.println(errorMessage);
+            LOGGER.error(errorMessage, e);
             return null;
         }
     }
 
-    public void putUser(User User) {
+    public void putUser(User user) {
         try {
-            dynamoDBMapper.save(User);
+            dynamoDBMapper.save(user);
         } catch (ResourceNotFoundException resourceNotFoundException) {
             createTable();
-            dynamoDBMapper.save(User);
+            dynamoDBMapper.save(user);
         } catch (Exception e) {
             String errorMessage = String.format("Exception in UserAdapter.putUser: %s", e.getMessage());
-            System.err.println(errorMessage);
+            LOGGER.error(errorMessage, e);
+        }
+    }
+
+    public List<User> getUsers() {
+        try {
+            return dynamoDBMapper.scan(User.class, new DynamoDBScanExpression());
+        } catch (ResourceNotFoundException resourceNotFoundException) {
+            //---------Creates New table:
+            createTable();
+            return null;
+        } catch (Exception e) {
+            String errorMessage = String.format("Exception in AppPropertyRepository.getUsers: %s", e.getMessage());
+            LOGGER.error(errorMessage, e);
+            return null;
         }
     }
 
@@ -66,7 +85,7 @@ public class UserRepository {
             dynamoDBClient.createTable(req);
         } catch (Exception e) {
             String errorMessage = String.format("Exception in UserAdapter.createTable: %s", e.getMessage());
-            System.err.println(errorMessage);
+            LOGGER.error(errorMessage, e);
         }
     }
 }
