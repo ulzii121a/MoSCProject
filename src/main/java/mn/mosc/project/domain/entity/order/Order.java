@@ -1,10 +1,13 @@
 package mn.mosc.project.domain.entity.order;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.*;
-import mn.mosc.project.domain.entity.authorization.User;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBVersionAttribute;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 /**
  * created by loya on 9/29/17
@@ -12,10 +15,10 @@ import java.util.List;
 @DynamoDBTable(tableName = "ORDER")
 public class Order {
     private String id;
-    private OrderDetail orderDetailId;
+    private String userId;
+    private Set<String> orderDetailIds;
     private String orderName;
     private Date orderDate;
-    private User user;
     private Long version;
 
     @DynamoDBHashKey(attributeName = "id")
@@ -27,13 +30,13 @@ public class Order {
         this.id = id;
     }
 
-    @DynamoDBRangeKey(attributeName = "")
-    public OrderDetail getOrderDetailId() {
-        return orderDetailId;
+    @DynamoDBRangeKey(attributeName = "userId")
+    public String getUserId() {
+        return userId;
     }
 
-    public void setOrderDetailId(OrderDetail orderDetailId) {
-        this.orderDetailId = orderDetailId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @DynamoDBAttribute(attributeName = "orderName")
@@ -54,14 +57,13 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.M)
-    @DynamoDBAttribute(attributeName = "user")
-    public User getUser() {
-        return user;
+    @DynamoDBAttribute(attributeName = "orderDetailIds")
+    public Set<String> getOrderDetailIds() {
+        return orderDetailIds;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setOrderDetailIds(Set<String> orderDetailIds) {
+        this.orderDetailIds = orderDetailIds;
     }
 
     @DynamoDBVersionAttribute
@@ -71,5 +73,17 @@ public class Order {
 
     public void setVersion(Long version) {
         this.version = version;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id='" + id + '\'' +
+                ", userId='" + userId + '\'' +
+                ", orderDetailIds=" + orderDetailIds +
+                ", orderName='" + orderName + '\'' +
+                ", orderDate=" + orderDate +
+                ", version=" + version +
+                '}';
     }
 }

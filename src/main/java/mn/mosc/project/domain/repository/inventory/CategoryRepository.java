@@ -8,18 +8,21 @@ import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.model.ResourceNotFoundException;
 import com.amazonaws.util.CollectionUtils;
 import mn.mosc.project.domain.entity.inventory.Category;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * created by loya on 9/29/17
  */
-
+@Component
 public class CategoryRepository {
     private final DynamoDBMapper dynamoDBMapper;
     private final AmazonDynamoDB dynamoDBClient;
     private static final Long dynamoDBInitialThroughput = 25L;
 
+    @Autowired
     public CategoryRepository(DynamoDBMapper dynamoDBMapper, AmazonDynamoDB dynamoDBClient) {
         this.dynamoDBMapper = dynamoDBMapper;
         this.dynamoDBClient = dynamoDBClient;

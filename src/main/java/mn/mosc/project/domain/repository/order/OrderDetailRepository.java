@@ -7,30 +7,31 @@ import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.model.ResourceNotFoundException;
 import com.amazonaws.util.CollectionUtils;
-import mn.mosc.project.domain.entity.inventory.Product;
-import mn.mosc.project.domain.entity.order.Order;
 import mn.mosc.project.domain.entity.order.OrderDetail;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * created by loya on 9/29/17
  */
-
+@Component
 public class OrderDetailRepository {
     private final DynamoDBMapper dynamoDBMapper;
     private final AmazonDynamoDB dynamoDBClient;
     private static final Long dynamoDBInitialThroughput = 25L;
 
+    @Autowired
     public OrderDetailRepository(DynamoDBMapper dynamoDBMapper, AmazonDynamoDB dynamoDBClient) {
         this.dynamoDBMapper = dynamoDBMapper;
         this.dynamoDBClient = dynamoDBClient;
     }
 
-    public OrderDetail getOrderDetail(Order order, Product product) {
+    public OrderDetail getOrderDetail(String id) {
         try {
             OrderDetail partitionKey = new OrderDetail();
-            partitionKey.setProduct(product);
+            partitionKey.setId(id);
 
             DynamoDBQueryExpression<OrderDetail> queryExpression = new DynamoDBQueryExpression<OrderDetail>()
                     .withHashKeyValues(partitionKey);
