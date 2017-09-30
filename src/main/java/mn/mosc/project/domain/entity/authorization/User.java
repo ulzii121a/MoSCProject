@@ -20,7 +20,6 @@ public class User {
     private Long version;
 
     @DynamoDBHashKey(attributeName = "id")
-    @DynamoDBAttribute(attributeName = "userName")
     public String getUserName() {
         return userName;
     }
