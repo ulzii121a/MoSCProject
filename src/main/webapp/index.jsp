@@ -8,9 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>MoSC</title>
   </head>
   <body>
-  $END$
+  Welcome to MoSC!
+
+  @ Powered by Mongol brains
   </body>
 </html>
