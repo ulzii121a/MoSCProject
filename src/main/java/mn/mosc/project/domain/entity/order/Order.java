@@ -2,7 +2,9 @@ package mn.mosc.project.domain.entity.order;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperFieldModel;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTyped;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBVersionAttribute;
 import mn.mosc.project.domain.entity.authorization.User;
 
@@ -46,6 +48,7 @@ public class Order {
         this.orderDate = orderDate;
     }
 
+    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.M)
     @DynamoDBAttribute(attributeName = "user")
     public User getUser() {
         return user;

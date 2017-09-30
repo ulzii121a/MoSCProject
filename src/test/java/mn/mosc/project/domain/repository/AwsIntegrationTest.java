@@ -8,6 +8,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import mn.mosc.project.domain.entity.authorization.User;
 import mn.mosc.project.domain.repository.authorization.UserRepository;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.InputStream;
@@ -19,6 +20,7 @@ import java.util.Properties;
 public class AwsIntegrationTest {
 
     private UserRepository userRepository;
+    private static final String userId = "user1";
 
     @Before
     public void setup() {
@@ -40,15 +42,15 @@ public class AwsIntegrationTest {
 
     @Test
     public void getUser() {
-        User user = userRepository.getUser("");
+        User user = userRepository.getUser(userId);
         System.out.println(user);
         assertNotNull(user);
     }
 
-    @Test
+    @Ignore
     public void putUser() {
         User user = new User();
-        user.setUserName("Test User");
+        user.setUserName(userId);
 
         userRepository.putUser(user);
     }
