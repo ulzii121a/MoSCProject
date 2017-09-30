@@ -1,6 +1,11 @@
 package mn.mosc.project.domain.entity.inventory;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperFieldModel;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTyped;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBVersionAttribute;
 
 import java.util.Map;
 
@@ -83,6 +88,7 @@ public class Product {
         this.picturePath = picturePath;
     }
 
+    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.M)
     @DynamoDBAttribute(attributeName = "category")
     public Category getCategory() {
         return category;
@@ -109,5 +115,21 @@ public class Product {
 
     public void setVersion(Long version) {
         this.version = version;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id='" + id + '\'' +
+                ", productName='" + productName + '\'' +
+                ", weight=" + weight +
+                ", height=" + height +
+                ", width=" + width +
+                ", length=" + length +
+                ", picturePath='" + picturePath + '\'' +
+                ", category=" + category +
+                ", attrs=" + attrs +
+                ", version=" + version +
+                '}';
     }
 }

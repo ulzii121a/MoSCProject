@@ -7,8 +7,6 @@ import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.model.ResourceNotFoundException;
 import com.amazonaws.util.CollectionUtils;
-import mn.mosc.project.domain.entity.inventory.Product;
-import mn.mosc.project.domain.entity.order.Order;
 import mn.mosc.project.domain.entity.order.OrderDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -30,11 +28,10 @@ public class OrderDetailRepository {
         this.dynamoDBClient = dynamoDBClient;
     }
 
-    public OrderDetail getOrderDetail(Order order, Product product) {
+    public OrderDetail getOrderDetail(String id) {
         try {
             OrderDetail partitionKey = new OrderDetail();
-            partitionKey.setOrder(order);
-            partitionKey.setProduct(product);
+            partitionKey.setId(id);
 
             DynamoDBQueryExpression<OrderDetail> queryExpression = new DynamoDBQueryExpression<OrderDetail>()
                     .withHashKeyValues(partitionKey);

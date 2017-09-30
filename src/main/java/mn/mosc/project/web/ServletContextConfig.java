@@ -20,13 +20,6 @@ import java.util.Locale;
 @ComponentScan(basePackages = "mn.mosc.project", useDefaultFilters = true)
 public class ServletContextConfig extends WebMvcConfigurationSupport {
 
-    private static final String FAVICON_URL = "/favicon.ico";
-    private static final String PROPERTY_APP_ENV = "application.environment";
-    private static final String PROPERTY_DEFAULT_ENV = "dev";
-    private static final String PROPERTY_LOCAL_JS_LOCATIONS = "local.js.locations";
-    private static final String PROPERTY_LOCAL_CSS_LOCATIONS = "local.css.locations";
-    private static final String PROPERTY_LOCAL_ASSETS_LOCATIONS = "local.assets.locations";
-
     @Override
     public RequestMappingHandlerMapping requestMappingHandlerMapping() {
         final RequestMappingHandlerMapping requestMappingHandlerMapping = super.requestMappingHandlerMapping();
