@@ -30,7 +30,6 @@ public class OrderDetailRepository {
     public OrderDetail getOrderDetail(Order order, Product product) {
         try {
             OrderDetail partitionKey = new OrderDetail();
-            partitionKey.setOrder(order);
             partitionKey.setProduct(product);
 
             DynamoDBQueryExpression<OrderDetail> queryExpression = new DynamoDBQueryExpression<OrderDetail>()
