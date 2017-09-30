@@ -13,6 +13,7 @@ node*/
 coverage/
 classes/
 out/
+src/main/resources/app.properties
 
 # Primer config directory - Do not remove and leave as the last line in .gitignore
 !.primer
