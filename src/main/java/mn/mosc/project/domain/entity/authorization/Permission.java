@@ -2,11 +2,13 @@ package mn.mosc.project.domain.entity.authorization;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBVersionAttribute;
 
 /**
  * created by loya on 9/29/17
  */
+@DynamoDBTable(tableName = "PERMISSION")
 public class Permission {
     private String id;
     private String permissionName;
