@@ -2,21 +2,16 @@ package mn.mosc.project.domain.entity.authorization;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBVersionAttribute;
-
-import java.util.List;
 
 /**
  * created by loya on 9/29/17
  */
-@DynamoDBTable(tableName = "ROLE")
-public class Role {
+public class Permission {
     private String id;
-    private String roleName;
+    private String permissionName;
     private String description;
-    private List<Permission> permissions;
-    private Long version;
+    private String version;
 
     @DynamoDBHashKey(attributeName = "id")
     public String getId() {
@@ -27,13 +22,13 @@ public class Role {
         this.id = id;
     }
 
-    @DynamoDBAttribute(attributeName = "roleName")
-    public String getRoleName() {
-        return roleName;
+    @DynamoDBAttribute(attributeName = "permissionName")
+    public String getPermissionName() {
+        return permissionName;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setPermissionName(String permissionName) {
+        this.permissionName = permissionName;
     }
 
     @DynamoDBAttribute(attributeName = "description")
@@ -45,21 +40,12 @@ public class Role {
         this.description = description;
     }
 
-
-    public List<Permission> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<Permission> permissions) {
-        this.permissions = permissions;
-    }
-
     @DynamoDBVersionAttribute
-    public Long getVersion() {
+    public String getVersion() {
         return version;
     }
 
-    public void setVersion(Long version) {
+    public void setVersion(String version) {
         this.version = version;
     }
 }
