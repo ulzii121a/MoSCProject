@@ -12,7 +12,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBVersionAttribute;
 @DynamoDBTable(tableName = "USER")
 public class User {
     private String id;
-    private String firstName;
+    private String userName;
     private Long version;
 
     @DynamoDBHashKey(attributeName = "id")
@@ -24,14 +24,15 @@ public class User {
         this.id = id;
     }
 
-    @DynamoDBAttribute(attributeName = "firstName")
-    public String getFirstName() {
-        return firstName;
+    @DynamoDBAttribute(attributeName = "userName")
+    public String getUserName() {
+        return userName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
+
 
     //--------Optimistic Locking:
     @DynamoDBVersionAttribute
@@ -42,4 +43,5 @@ public class User {
     public void setVersion(Long version) {
         this.version = version;
     }
+
 }
