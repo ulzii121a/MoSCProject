@@ -10,6 +10,9 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.io.InputStream;
+import java.util.Properties;
+
 /**
  * created by ubulgan on 9/29/17
  */
@@ -20,13 +23,20 @@ public class AwsIntegrationTest {
 
     @Before
     public void setup() {
-        System.setProperty("aws.accessKeyId", "AKIAIEZ65ZTLJ5LDW77Q");
-        System.setProperty("aws.secretKey", "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");
-        System.setProperty("aws.region", "us-east-1");
+        try (InputStream inputStream = AwsIntegrationTest.class.getClassLoader().getResourceAsStream("app.properties")) {
+            Properties appProperties = new Properties();
+            appProperties.load(inputStream);
 
-        AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder.defaultClient();
-        DynamoDBMapper dynamoDBMapper = new DynamoDBMapper(amazonDynamoDB);
-        userRepository = new UserRepository(dynamoDBMapper, amazonDynamoDB);
+            System.setProperty("aws.accessKeyId", appProperties.getProperty("accessKeyId"));
+            System.setProperty("aws.secretKey", appProperties.getProperty("secretKey"));
+            System.setProperty("aws.region", appProperties.getProperty("region"));
+
+            AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder.defaultClient();
+            DynamoDBMapper dynamoDBMapper = new DynamoDBMapper(amazonDynamoDB);
+            userRepository = new UserRepository(dynamoDBMapper, amazonDynamoDB);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
