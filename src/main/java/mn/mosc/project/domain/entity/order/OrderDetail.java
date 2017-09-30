@@ -15,7 +15,7 @@ public class OrderDetail {
     private Order order;
     private Product product;
     private int quantity;
-    private double unitPrice;
+    private Double unitPrice;
     private Long version;
 
     @DynamoDBHashKey(attributeName = "id")
@@ -55,11 +55,11 @@ public class OrderDetail {
     }
 
     @DynamoDBAttribute(attributeName = "unitPrice")
-    public double getUnitPrice() {
+    public Double getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(double unitPrice) {
+    public void setUnitPrice(Double unitPrice) {
         this.unitPrice = unitPrice;
     }
 

@@ -11,10 +11,10 @@ import java.util.Map;
 public class Product {
     private String id;
     private String productName;
-    private double weight;
-    private double height;
-    private double width;
-    private double length;
+    private Double weight;
+    private Double height;
+    private Double width;
+    private Double length;
     private String picturePath;
     private Category category;
     private Map<String, String> attrs;
@@ -39,38 +39,38 @@ public class Product {
     }
 
     @DynamoDBAttribute(attributeName = "weight")
-    public double getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 
     @DynamoDBAttribute(attributeName = "height")
-    public double getHeight() {
+    public Double getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(Double height) {
         this.height = height;
     }
 
     @DynamoDBAttribute(attributeName = "width")
-    public double getWidth() {
+    public Double getWidth() {
         return width;
     }
 
-    public void setWidth(double width) {
+    public void setWidth(Double width) {
         this.width = width;
     }
 
     @DynamoDBAttribute(attributeName = "length")
-    public double getLength() {
+    public Double getLength() {
         return length;
     }
 
-    public void setLength(double length) {
+    public void setLength(Double length) {
         this.length = length;
     }
 

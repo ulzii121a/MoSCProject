@@ -1,9 +1,6 @@
 package mn.mosc.project.domain.entity.authorization;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBVersionAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
 /**
  * created by ubulgan on 9/29/17
@@ -14,7 +11,7 @@ public class User {
     private String id;
     private String userName;
     private String email;
-    private boolean isLocked;
+    private Boolean isLocked;
     private Role role;
     private Long version;
 
@@ -45,12 +42,13 @@ public class User {
         this.email = email;
     }
 
+    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.BOOL)
     @DynamoDBAttribute(attributeName = "isLocked")
-    public boolean isLocked() {
+    public Boolean isLocked() {
         return isLocked;
     }
 
-    public void setLocked(boolean locked) {
+    public void setLocked(Boolean locked) {
         isLocked = locked;
     }
 
