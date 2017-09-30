@@ -13,7 +13,7 @@ public class Permission {
     private String id;
     private String permissionName;
     private String description;
-    private String version;
+    private Long version;
 
     @DynamoDBHashKey(attributeName = "id")
     public String getId() {
@@ -43,11 +43,11 @@ public class Permission {
     }
 
     @DynamoDBVersionAttribute
-    public String getVersion() {
+    public Long getVersion() {
         return version;
     }
 
-    public void setVersion(String version) {
+    public void setVersion(Long version) {
         this.version = version;
     }
 }
