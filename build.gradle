@@ -1,12 +1,44 @@
 group 'MoSCProject'
 version '1.0-SNAPSHOT'
 
+buildscript {
+    repositories {
+        jcenter()
+        maven { url "https://plugins.gradle.org/m2/" }
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'ru.shadam.gretty:gretty:+'
+        classpath 'com.moowork.gradle:gradle-node-plugin:1.1.1'
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.3.RELEASE"
+    }
+}
+
+apply plugin: "io.spring.dependency-management"
+
+dependencyManagement {
+    imports {
+        mavenBom 'com.amazonaws:aws-java-sdk-bom:1.11.+'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
 apply plugin: 'war'
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
 dependencies {
+    compile 'com.amazonaws:aws-java-sdk-s3'
+    compile 'com.amazonaws:aws-java-sdk-sns'
+    compile 'com.amazonaws:aws-java-sdk-dynamodb'
+    
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
