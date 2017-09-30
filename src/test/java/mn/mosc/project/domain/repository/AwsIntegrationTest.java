@@ -1,18 +1,17 @@
 package mn.mosc.project.domain.repository;
 
+import static junit.framework.TestCase.assertNotNull;
+
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import mn.mosc.project.domain.entity.authorization.User;
 import mn.mosc.project.domain.repository.authorization.UserRepository;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.InputStream;
 import java.util.Properties;
-
-import static junit.framework.TestCase.assertNotNull;
 
 /**
  * created by ubulgan on 9/29/17
@@ -20,7 +19,6 @@ import static junit.framework.TestCase.assertNotNull;
 public class AwsIntegrationTest {
 
     private UserRepository userRepository;
-    private static final String userId = "user1";
 
     @Before
     public void setup() {
@@ -42,15 +40,14 @@ public class AwsIntegrationTest {
 
     @Test
     public void getUser() {
-        User user = userRepository.getUser(userId);
+        User user = userRepository.getUser("");
         System.out.println(user);
         assertNotNull(user);
     }
 
-    @Ignore
+    @Test
     public void putUser() {
         User user = new User();
-        user.setId(userId);
         user.setUserName("Test User");
 
         userRepository.putUser(user);
