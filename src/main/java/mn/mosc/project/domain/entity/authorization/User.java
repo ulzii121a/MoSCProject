@@ -53,4 +53,12 @@ public class User {
         this.version = version;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", userName='" + userName + '\'' +
+                ", version=" + version +
+                '}';
+    }
 }
