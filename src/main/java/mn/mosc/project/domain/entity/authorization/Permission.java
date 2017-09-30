@@ -1,4 +1,4 @@
-package mn.mosc.project.domain.entity;
+package mn.mosc.project.domain.entity.authorization;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
@@ -6,13 +6,13 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBVersionAttribute;
 
 /**
- * created by ubulgan on 9/29/17
+ * created by loya on 9/29/17
  */
-
-@DynamoDBTable(tableName = "USER")
-public class User {
+@DynamoDBTable(tableName = "PERMISSION")
+public class Permission {
     private String id;
-    private String userName;
+    private String permissionName;
+    private String description;
     private Long version;
 
     @DynamoDBHashKey(attributeName = "id")
@@ -24,17 +24,24 @@ public class User {
         this.id = id;
     }
 
-    @DynamoDBAttribute(attributeName = "userName")
-    public String getUserName() {
-        return userName;
+    @DynamoDBAttribute(attributeName = "permissionName")
+    public String getPermissionName() {
+        return permissionName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setPermissionName(String permissionName) {
+        this.permissionName = permissionName;
     }
 
+    @DynamoDBAttribute(attributeName = "description")
+    public String getDescription() {
+        return description;
+    }
 
-    //--------Optimistic Locking:
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @DynamoDBVersionAttribute
     public Long getVersion() {
         return version;
@@ -42,14 +49,5 @@ public class User {
 
     public void setVersion(Long version) {
         this.version = version;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", userName='" + userName + '\'' +
-                ", version=" + version +
-                '}';
     }
 }
