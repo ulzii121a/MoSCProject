@@ -1,4 +1,4 @@
-package mn.mosc.project.domain.repository;
+package mn.mosc.project.domain.repository.authorization;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
@@ -7,7 +7,7 @@ import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.model.ResourceNotFoundException;
 import com.amazonaws.util.CollectionUtils;
-import mn.mosc.project.domain.entity.User;
+import mn.mosc.project.domain.entity.authorization.User;
 
 import java.util.List;
 
