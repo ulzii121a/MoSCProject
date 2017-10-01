@@ -48,7 +48,7 @@ public class UserService {
         }
     }
 
-    public boolean addUser(User user) {
+    public User addUser(User user) {
         Validate.notNull(user, "User should not be null!");
         Validate.notBlank(user.getId(), "User Id should be provided as properly!");
         Validate.notBlank(user.getPassword(), "User Password should be provided as properly!");
@@ -58,7 +58,7 @@ public class UserService {
             user.setPassword(encryption.encrypt(user.getPassword()));
 
             userRepository.putUser(user);
-            return true;
+            return user;
         } catch (Exception e) {
             LOGGER.error(String.format("Exception in UserService.getUser: %s", e.getMessage()), e);
             throw new RuntimeException(e);
@@ -74,8 +74,8 @@ public class UserService {
             return false;
 
         try {
-            String encrypted = encryption.encrypt(pass);
-            return encrypted.equals(user.getPassword());
+            String decrypted = encryption.decrypt(user.getPassword());
+            return decrypted.equals(pass);
         } catch (Exception e) {
             LOGGER.error(String.format("Exception in UserService.getUser: %s", e.getMessage()), e);
             throw new RuntimeException(e);

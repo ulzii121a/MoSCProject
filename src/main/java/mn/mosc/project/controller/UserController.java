@@ -1,5 +1,6 @@
 package mn.mosc.project.controller;
 
+import mn.mosc.project.controller.entity.UserControllerResponse;
 import mn.mosc.project.domain.entity.authorization.User;
 import mn.mosc.project.domain.service.UserService;
 import org.apache.commons.lang3.StringUtils;
@@ -33,7 +34,7 @@ public class UserController {
     public ResponseEntity<User> getUser(@PathVariable("userId") String userId) {
         try {
             User user = userService.getUser(userId);
-            return new ResponseEntity<>(user, user == null ? HttpStatus.NOT_FOUND : HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(user, user == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new User(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -43,36 +44,38 @@ public class UserController {
     public ResponseEntity<List<User>> getUser() {
         try {
             List<User> users = userService.getUsers();
-            return new ResponseEntity<>(users, users == null ? HttpStatus.NOT_FOUND : HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(users, users == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    public ResponseEntity<Boolean> addUser(@RequestBody User user) {
-        if (user == null || StringUtils.isBlank(user.getId()))
+    public ResponseEntity<UserControllerResponse> addUser(@RequestBody User user) {
+        if (user == null || StringUtils.isBlank(user.getId()) || StringUtils.isBlank(user.getPassword()))
             new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
 
         try {
-            boolean result = userService.addUser(user);
-            return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
+            User userRetrieved = userService.getUser(user.getId());
+            if (userRetrieved != null)
+                return new ResponseEntity<>(new UserControllerResponse("User already exists!"), HttpStatus.IM_USED);
+
+            return new ResponseEntity<>(new UserControllerResponse(userService.addUser(user)), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new UserControllerResponse("Internal Service error!"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
-    public ResponseEntity<Boolean> login(@RequestBody String userName,
-                                         @RequestBody String pass) {
+    public ResponseEntity<UserControllerResponse> login(@RequestBody String userName, @RequestBody String pass) {
         if (StringUtils.isBlank(userName) || StringUtils.isBlank(pass))
             new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
 
         try {
             boolean result = userService.login(userName, pass);
-            return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(new UserControllerResponse(result), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new UserControllerResponse("Internal Service error!"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
