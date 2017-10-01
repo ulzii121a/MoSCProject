@@ -42,7 +42,6 @@ apply plugin: 'org.springframework.boot'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-
 repositories {
     mavenLocal()
     mavenCentral()
@@ -64,16 +63,4 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
 
     testCompile group: 'junit', name: 'junit', version: '4.11'
-}
-
-bootRun {
-    configure {
-        systemProperty "aws.accessKeyId", System.getProperty("accessKeyId")
-        systemProperty "aws.secretKey", System.getProperty("secretKey")
-        systemProperty "aws.region", System.getProperty("region")
-        systemProperty "application.environment", "dev"
-        systemProperty "spring.profiles.active", "dev"
-        systemProperty "application.home", "."
-    }
-    jvmArgs = ["-Dproject.name=${project.name}", "-Dapplication.name=${project.name}", '-Dapplication.environment=dev', '-Dapplication.home=.', '-Xdebug', '-Xrunjdwp:server=y,transport=dt_socket,address=5005,suspend=n']
 }
