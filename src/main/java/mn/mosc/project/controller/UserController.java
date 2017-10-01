@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/getUsers", method = RequestMethod.GET)
-    public ResponseEntity<List<User>> getUser() {
+    public ResponseEntity<List<User>> getUsers() {
         try {
             List<User> users = userService.getUsers();
             return new ResponseEntity<>(users, users == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
@@ -67,7 +67,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
-    public ResponseEntity<UserControllerResponse> login(@RequestBody String userName, @RequestBody String pass) {
+    public ResponseEntity<UserControllerResponse> auth(@RequestBody String userName, @RequestBody String pass) {
         if (StringUtils.isBlank(userName) || StringUtils.isBlank(pass))
             new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
 
