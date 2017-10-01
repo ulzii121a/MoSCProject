@@ -11,8 +11,8 @@ import mn.mosc.project.domain.entity.order.TransferRequest;
 import mn.mosc.project.domain.entity.order.TransferRequestDetail;
 import mn.mosc.project.domain.repository.authorization.UserRepository;
 import mn.mosc.project.domain.repository.inventory.ProductRepository;
-import mn.mosc.project.domain.repository.order.OrderDetailRepository;
-import mn.mosc.project.domain.repository.order.OrderRepository;
+import mn.mosc.project.domain.repository.order.TransferRequestDetailRepository;
+import mn.mosc.project.domain.repository.order.TransferRequestRepository;
 import org.junit.Before;
 import org.junit.Ignore;
 
@@ -28,8 +28,8 @@ import java.util.Set;
 public class AwsIntegrationTest {
 
     private UserRepository userRepository;
-    private OrderRepository orderRepository;
-    private OrderDetailRepository orderDetailRepository;
+    private TransferRequestRepository transferRequestRepository;
+    private TransferRequestDetailRepository transferRequestDetailRepository;
     private ProductRepository productRepository;
 
     private static final String userId = "user1";
@@ -48,8 +48,8 @@ public class AwsIntegrationTest {
             DynamoDBMapper dynamoDBMapper = new DynamoDBMapper(amazonDynamoDB);
 
             userRepository = new UserRepository(dynamoDBMapper, amazonDynamoDB);
-            orderDetailRepository = new OrderDetailRepository(dynamoDBMapper, amazonDynamoDB);
-            orderRepository = new OrderRepository(dynamoDBMapper, amazonDynamoDB);
+            transferRequestDetailRepository = new TransferRequestDetailRepository(dynamoDBMapper, amazonDynamoDB);
+            transferRequestRepository = new TransferRequestRepository(dynamoDBMapper, amazonDynamoDB);
             productRepository = new ProductRepository(dynamoDBMapper, amazonDynamoDB);
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,22 +72,22 @@ public class AwsIntegrationTest {
     }
 
     @Ignore
-    public void getOrderDetail() {
-        TransferRequestDetail transferRequestDetail = orderDetailRepository.getOrderDetail("OrderDetail1");
+    public void getTransferRequestDetail() {
+        TransferRequestDetail transferRequestDetail = transferRequestDetailRepository.getTransferRequestDetail("OrderDetail1");
         System.out.println(transferRequestDetail);
         assertNotNull(transferRequestDetail);
     }
 
     @Ignore
-    public void putOrderDetail() {
+    public void putTransferRequestDetail() {
         TransferRequestDetail transferRequestDetail = new TransferRequestDetail();
-        transferRequestDetail.setId("OrderDetail1");
+        transferRequestDetail.setId("TranferRequestDetail1");
         transferRequestDetail.setProductId("p1");
-        transferRequestDetail.setOrderId("testOrder1");
+        transferRequestDetail.setTransferRequestId("testTransferRequest1");
         transferRequestDetail.setQuantity(1);
         transferRequestDetail.setUnitPrice(500d);
 
-        orderDetailRepository.putOrderDetail(transferRequestDetail);
+        transferRequestDetailRepository.putTransferRequestDetail(transferRequestDetail);
     }
 
     @Ignore
@@ -107,23 +107,23 @@ public class AwsIntegrationTest {
     }
 
     @Ignore
-    public void getOrder() {
-        TransferRequest transferRequest = orderRepository.getOrder("testOrder1");
+    public void getTransferRequest() {
+        TransferRequest transferRequest = transferRequestRepository.getTransferRequest("testOrder1");
         System.out.println(transferRequest);
         assertNotNull(transferRequest);
     }
 
     @Ignore
-    public void putOrder() {
+    public void putTransferRequest() {
         Set<String> orderDetails = new HashSet<>();
-        orderDetails.add("OrderDetail1");
+        orderDetails.add("TransferRequestDetail1");
 
         TransferRequest transferRequest = new TransferRequest();
-        transferRequest.setId("testOrder1");
-        transferRequest.setOrderDate(new Date());
+        transferRequest.setId("testTransferRequest1");
+        transferRequest.setTransferRequestDate(new Date());
         transferRequest.setUserId(userId);
-        transferRequest.setOrderDetailIds(orderDetails);
+        transferRequest.setTransferRequestDetails(orderDetails);
 
-        orderRepository.putOrder(transferRequest);
+        transferRequestRepository.putTransferRequest(transferRequest);
     }
 }

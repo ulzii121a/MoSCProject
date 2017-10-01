@@ -17,18 +17,18 @@ import java.util.List;
  * created by loya on 9/29/17
  */
 @Component
-public class OrderDetailRepository {
+public class TransferRequestDetailRepository {
     private final DynamoDBMapper dynamoDBMapper;
     private final AmazonDynamoDB dynamoDBClient;
     private static final Long dynamoDBInitialThroughput = 25L;
 
     @Autowired
-    public OrderDetailRepository(DynamoDBMapper dynamoDBMapper, AmazonDynamoDB dynamoDBClient) {
+    public TransferRequestDetailRepository(DynamoDBMapper dynamoDBMapper, AmazonDynamoDB dynamoDBClient) {
         this.dynamoDBMapper = dynamoDBMapper;
         this.dynamoDBClient = dynamoDBClient;
     }
 
-    public TransferRequestDetail getOrderDetail(String id) {
+    public TransferRequestDetail getTransferRequestDetail(String id) {
         try {
             TransferRequestDetail partitionKey = new TransferRequestDetail();
             partitionKey.setId(id);
@@ -49,7 +49,7 @@ public class OrderDetailRepository {
         }
     }
 
-    public void putOrderDetail(TransferRequestDetail transferRequestDetail) {
+    public void putTransferRequestDetail(TransferRequestDetail transferRequestDetail) {
         try {
             dynamoDBMapper.save(transferRequestDetail);
         } catch (ResourceNotFoundException resourceNotFoundException) {
