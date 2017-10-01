@@ -1,11 +1,6 @@
 package mn.mosc.project.domain.entity.inventory;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperFieldModel;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTyped;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBVersionAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
 import java.util.Map;
 
@@ -21,7 +16,7 @@ public class Product {
     private Double width;
     private Double length;
     private String picturePath;
-    private Category category;
+    private String categoryId;
     private Map<String, String> attrs;
     private Long version;
 
@@ -88,14 +83,13 @@ public class Product {
         this.picturePath = picturePath;
     }
 
-    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.M)
-    @DynamoDBAttribute(attributeName = "category")
-    public Category getCategory() {
-        return category;
+    @DynamoDBAttribute(attributeName = "categoryId")
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.M)
@@ -127,7 +121,7 @@ public class Product {
                 ", width=" + width +
                 ", length=" + length +
                 ", picturePath='" + picturePath + '\'' +
-                ", category=" + category +
+                ", category=" + categoryId +
                 ", attrs=" + attrs +
                 ", version=" + version +
                 '}';

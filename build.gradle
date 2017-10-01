@@ -42,10 +42,6 @@ apply plugin: 'org.springframework.boot'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-def props = new Properties();
-file("src/main/resources/app.properties").withInputStream { props.load(it) }
-
-
 repositories {
     mavenLocal()
     mavenCentral()
@@ -71,9 +67,6 @@ dependencies {
 
 bootRun {
     configure {
-        systemProperty "aws.accessKeyId", props.getProperty("accessKeyId")
-        systemProperty "aws.secretKey", props.getProperty("secretKey")
-        systemProperty "aws.region", props.getProperty("region")
         systemProperty "application.environment", "dev"
         systemProperty "spring.profiles.active", "dev"
         systemProperty "application.home", "."
