@@ -28,7 +28,6 @@ dependencyManagement {
 ext {
     startClass = 'mn.mosc.project.Application'
     depotInfo = 'none'
-    depotInfo = 'none'
 }
 
 apply plugin: 'idea'
