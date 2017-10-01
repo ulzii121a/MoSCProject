@@ -28,6 +28,7 @@ dependencyManagement {
 ext {
     startClass = 'mn.mosc.project.Application'
     depotInfo = 'none'
+    depotInfo = 'none'
 }
 
 apply plugin: 'idea'
@@ -62,6 +63,8 @@ dependencies {
     compile group: 'com.google.code.gson', name: 'gson', version: '2.8.2'
 
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
+
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
 
     testCompile group: 'junit', name: 'junit', version: '4.11'
 
