@@ -74,12 +74,4 @@ public class Encryption {
 
         return decryptedTextBytes == null ? null : new String(decryptedTextBytes);
     }
-
-    public static void main(String[] args) throws Exception {
-        Encryption encryption = new Encryption();
-        String encrypted = encryption.encrypt("ganaa");
-        System.out.println(encrypted);
-
-        System.out.println(encryption.decrypt(encrypted));
-    }
 }
