@@ -43,7 +43,7 @@ public class UserService {
         try {
             return userRepository.getUsers();
         } catch (Exception e) {
-            LOGGER.error(String.format("Exception in UserService.getUser: %s", e.getMessage()), e);
+            LOGGER.error(String.format("Exception in UserService.getUsers: %s", e.getMessage()), e);
             throw new RuntimeException(e);
         }
     }
@@ -60,12 +60,25 @@ public class UserService {
             userRepository.putUser(user);
             return user;
         } catch (Exception e) {
-            LOGGER.error(String.format("Exception in UserService.getUser: %s", e.getMessage()), e);
+            LOGGER.error(String.format("Exception in UserService.addUser: %s", e.getMessage()), e);
             throw new RuntimeException(e);
         }
     }
 
-    public boolean login(String userId, String pass) {
+    public User updateUser(User user) {
+        Validate.notNull(user, "User should not be null!");
+        Validate.notBlank(user.getId(), "User Id should be provided as properly!");
+
+        try {
+            userRepository.putUser(user);
+            return user;
+        } catch (Exception e) {
+            LOGGER.error(String.format("Exception in UserService.updateUser: %s", e.getMessage()), e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean auth(String userId, String pass) {
         Validate.notBlank(userId, "User Id should be provided as properly!");
         Validate.notBlank(pass, "Pass should be provided as properly!");
 
@@ -77,7 +90,7 @@ public class UserService {
             String decrypted = encryption.decrypt(user.getPassword());
             return decrypted.equals(pass);
         } catch (Exception e) {
-            LOGGER.error(String.format("Exception in UserService.getUser: %s", e.getMessage()), e);
+            LOGGER.error(String.format("Exception in UserService.auth: %s", e.getMessage()), e);
             throw new RuntimeException(e);
         }
     }
