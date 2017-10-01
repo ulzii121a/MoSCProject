@@ -2,12 +2,10 @@ package mn.mosc.project.domain.entity.authorization;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperFieldModel;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTyped;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBVersionAttribute;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * created by loya on 9/29/17
@@ -17,7 +15,7 @@ public class Role {
     private String id;
     private String roleName;
     private String description;
-    private List<Permission> permissions;
+    private Set<String> permissionIds;
     private Long version;
 
     @DynamoDBHashKey(attributeName = "id")
@@ -29,7 +27,7 @@ public class Role {
         this.id = id;
     }
 
-    @DynamoDBAttribute(attributeName = "roleName")
+    @DynamoDBAttribute(attributeName = "role_name")
     public String getRoleName() {
         return roleName;
     }
@@ -47,14 +45,13 @@ public class Role {
         this.description = description;
     }
 
-    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.L)
-    @DynamoDBAttribute(attributeName = "permissions")
-    public List<Permission> getPermissions() {
-        return permissions;
+    @DynamoDBAttribute(attributeName = "permission_ids")
+    public Set<String> getPermissionIds() {
+        return permissionIds;
     }
 
-    public void setPermissions(List<Permission> permissions) {
-        this.permissions = permissions;
+    public void setPermissionIds(Set<String> permissionIds) {
+        this.permissionIds = permissionIds;
     }
 
     @DynamoDBVersionAttribute

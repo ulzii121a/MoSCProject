@@ -13,19 +13,22 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBVersionAttribute;
 
 @DynamoDBTable(tableName = "USER")
 public class User {
-    private String userName;
+    private String id;
     private String email;
     private Boolean isLocked;
-    private Role role;
+    private String roleId;
     private Long version;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
 
     @DynamoDBHashKey(attributeName = "id")
-    public String getUserName() {
-        return userName;
+    public String getId() {
+        return id;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setId(String id) {
+        this.id = id;
     }
 
     @DynamoDBAttribute(attributeName = "email")
@@ -38,7 +41,7 @@ public class User {
     }
 
     @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.BOOL)
-    @DynamoDBAttribute(attributeName = "isLocked")
+    @DynamoDBAttribute(attributeName = "is_locked")
     public Boolean isLocked() {
         return isLocked;
     }
@@ -47,14 +50,40 @@ public class User {
         isLocked = locked;
     }
 
-    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.M)
-    @DynamoDBAttribute(attributeName = "role")
-    public Role getRole() {
-        return role;
+    @DynamoDBAttribute(attributeName = "role_id")
+    public String getRoleId() {
+        return roleId;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
+
+    @DynamoDBAttribute(attributeName = "first_name")
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    @DynamoDBAttribute(attributeName = "last_name")
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @DynamoDBAttribute(attributeName = "phone")
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     //--------Optimistic Locking:
@@ -70,10 +99,10 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "userName='" + userName + '\'' +
+                "userName='" + id + '\'' +
                 ", email='" + email + '\'' +
                 ", isLocked=" + isLocked +
-                ", role=" + role +
+                ", role=" + roleId +
                 ", version=" + version +
                 '}';
     }

@@ -7,68 +7,68 @@ import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.model.ResourceNotFoundException;
 import com.amazonaws.util.CollectionUtils;
-import mn.mosc.project.domain.entity.authorization.Role;
+import mn.mosc.project.domain.entity.authorization.Permission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
- * created by loya on 9/29/17
+ * created by ubulgan on 9/30/17
  */
 @Component
-public class RoleRepository {
+public class PermissionRepository {
     private final DynamoDBMapper dynamoDBMapper;
     private final AmazonDynamoDB dynamoDBClient;
     private static final Long dynamoDBInitialThroughput = 25L;
 
     @Autowired
-    public RoleRepository(DynamoDBMapper dynamoDBMapper, AmazonDynamoDB dynamoDBClient) {
+    public PermissionRepository(DynamoDBMapper dynamoDBMapper, AmazonDynamoDB dynamoDBClient) {
         this.dynamoDBMapper = dynamoDBMapper;
         this.dynamoDBClient = dynamoDBClient;
     }
 
-    public Role getRole(String id) {
+    public Permission getPermission(String id) {
         try {
-            Role partitionKey = new Role();
+            Permission partitionKey = new Permission();
             partitionKey.setId(id);
 
-            DynamoDBQueryExpression<Role> queryExpression = new DynamoDBQueryExpression<Role>()
+            DynamoDBQueryExpression<Permission> queryExpression = new DynamoDBQueryExpression<Permission>()
                     .withHashKeyValues(partitionKey);
 
-            List<Role> propertyUtils = dynamoDBMapper.query(Role.class, queryExpression);
+            List<Permission> propertyUtils = dynamoDBMapper.query(Permission.class, queryExpression);
 
             return CollectionUtils.isNullOrEmpty(propertyUtils) ? null : propertyUtils.get(0);
         } catch (ResourceNotFoundException resourceNotFoundException) {
             createTable();
             return null;
         } catch (Exception e) {
-            String errorMessage = String.format("Exception in RoleAdapter.getPermission: %s", e.getMessage());
+            String errorMessage = String.format("Exception in PermissionRepository.getPermission: %s", e.getMessage());
             System.err.println(errorMessage);
             return null;
         }
     }
 
-    public void putRole(Role role) {
+    public void putPermission(Permission permission) {
         try {
-            dynamoDBMapper.save(role);
+            dynamoDBMapper.save(permission);
         } catch (ResourceNotFoundException resourceNotFoundException) {
             createTable();
-            dynamoDBMapper.save(role);
+            dynamoDBMapper.save(permission);
         } catch (Exception e) {
-            String errorMessage = String.format("Exception in RoleAdapter.putPermission: %s", e.getMessage());
+            String errorMessage = String.format("Exception in PermissionRepository.putPermission: %s", e.getMessage());
             System.err.println(errorMessage);
         }
     }
 
     private void createTable() {
         try {
-            CreateTableRequest req = dynamoDBMapper.generateCreateTableRequest(Role.class);
+            CreateTableRequest req = dynamoDBMapper.generateCreateTableRequest(Permission.class);
             req.setProvisionedThroughput(new ProvisionedThroughput(dynamoDBInitialThroughput, dynamoDBInitialThroughput));
 
             dynamoDBClient.createTable(req);
         } catch (Exception e) {
-            String errorMessage = String.format("Exception in RoleAdapter.createTable: %s", e.getMessage());
+            String errorMessage = String.format("Exception in PermissionRepository.createTable: %s", e.getMessage());
             System.err.println(errorMessage);
         }
     }

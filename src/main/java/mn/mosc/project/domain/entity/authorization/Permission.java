@@ -24,7 +24,7 @@ public class Permission {
         this.id = id;
     }
 
-    @DynamoDBAttribute(attributeName = "permissionName")
+    @DynamoDBAttribute(attributeName = "permission_name")
     public String getPermissionName() {
         return permissionName;
     }

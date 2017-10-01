@@ -66,7 +66,7 @@ public class AwsIntegrationTest {
     @Ignore
     public void putUser() {
         User user = new User();
-        user.setUserName(userId);
+        user.setId(userId);
 
         userRepository.putUser(user);
     }
