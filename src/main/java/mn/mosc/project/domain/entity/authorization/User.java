@@ -21,6 +21,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String phoneNumber;
+    private String password;
 
     @DynamoDBHashKey(attributeName = "id")
     public String getId() {
@@ -84,6 +85,15 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @DynamoDBAttribute(attributeName = "password")
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     //--------Optimistic Locking:
