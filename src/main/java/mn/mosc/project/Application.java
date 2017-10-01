@@ -1,12 +1,5 @@
 package mn.mosc.project;
 
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import mn.mosc.project.domain.repository.authorization.UserRepository;
-import mn.mosc.project.domain.repository.inventory.ProductRepository;
-import mn.mosc.project.domain.repository.order.TransferRequestDetailRepository;
-import mn.mosc.project.domain.repository.order.TransferRequestRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
