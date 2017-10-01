@@ -1,8 +1,7 @@
-package mn.mosc.project.domain.entity.order;
+package mn.mosc.project.domain.entity.sales;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBVersionAttribute;
 
@@ -13,9 +12,9 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBVersionAttribute;
 public class OrderDetail {
     private String id;
     private String orderId;
-    private String productId;
+    private String inventoryTransferId;
     private int quantity;
-    private Double unitPrice;
+    private Double price;
     private Long version;
 
     @DynamoDBHashKey(attributeName = "id")
@@ -27,7 +26,7 @@ public class OrderDetail {
         this.id = id;
     }
 
-    @DynamoDBRangeKey(attributeName = "orderId")
+    @DynamoDBAttribute(attributeName = "order_id")
     public String getOrderId() {
         return orderId;
     }
@@ -36,13 +35,13 @@ public class OrderDetail {
         this.orderId = orderId;
     }
 
-    @DynamoDBAttribute(attributeName = "productId")
-    public String getProductId() {
-        return productId;
+    @DynamoDBAttribute(attributeName = "inventory_transfer_id")
+    public String getInventoryTransferId() {
+        return inventoryTransferId;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public void setInventoryTransferId(String inventoryTransferId) {
+        this.inventoryTransferId = inventoryTransferId;
     }
 
     @DynamoDBAttribute(attributeName = "quantity")
@@ -54,13 +53,13 @@ public class OrderDetail {
         this.quantity = quantity;
     }
 
-    @DynamoDBAttribute(attributeName = "unitPrice")
-    public Double getUnitPrice() {
-        return unitPrice;
+    @DynamoDBAttribute(attributeName = "price")
+    public Double getPrice() {
+        return price;
     }
 
-    public void setUnitPrice(Double unitPrice) {
-        this.unitPrice = unitPrice;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     @DynamoDBVersionAttribute
@@ -70,17 +69,5 @@ public class OrderDetail {
 
     public void setVersion(Long version) {
         this.version = version;
-    }
-
-    @Override
-    public String toString() {
-        return "OrderDetail{" +
-                "id='" + id + '\'' +
-                ", orderId='" + orderId + '\'' +
-                ", productId='" + productId + '\'' +
-                ", quantity=" + quantity +
-                ", unitPrice=" + unitPrice +
-                ", version=" + version +
-                '}';
     }
 }
