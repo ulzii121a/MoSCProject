@@ -10,7 +10,7 @@ import java.util.Properties;
  * created by ubulgan on 9/30/17
  */
 @SpringBootApplication
-public class Application {
+public class Application extends SpringBootServletInitializer {
     public static void main(String[] args) {
         try (InputStream inputStream = Application.class.getClassLoader().getResourceAsStream("app.properties")) {
             Properties appProperties = new Properties();
