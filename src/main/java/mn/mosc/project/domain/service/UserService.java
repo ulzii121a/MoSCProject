@@ -9,7 +9,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +35,7 @@ public class UserService {
             return userRepository.getUser(userId);
         } catch (Exception e) {
             LOGGER.error(String.format("Exception in UserService.getUser: %s", e.getMessage()), e);
-            return null;
+            throw new RuntimeException(e);
         }
     }
 
@@ -45,7 +44,7 @@ public class UserService {
             return userRepository.getUsers();
         } catch (Exception e) {
             LOGGER.error(String.format("Exception in UserService.getUser: %s", e.getMessage()), e);
-            return new ArrayList<>();
+            throw new RuntimeException(e);
         }
     }
 
@@ -62,7 +61,7 @@ public class UserService {
             return true;
         } catch (Exception e) {
             LOGGER.error(String.format("Exception in UserService.getUser: %s", e.getMessage()), e);
-            return false;
+            throw new RuntimeException(e);
         }
     }
 
@@ -79,7 +78,7 @@ public class UserService {
             return encrypted.equals(user.getPassword());
         } catch (Exception e) {
             LOGGER.error(String.format("Exception in UserService.getUser: %s", e.getMessage()), e);
-            return false;
+            throw new RuntimeException(e);
         }
     }
 }
