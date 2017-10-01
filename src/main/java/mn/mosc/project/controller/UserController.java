@@ -19,7 +19,7 @@ import java.util.List;
  * created by ubulgan on 9/30/17
  */
 @RestController
-@RequestMapping(value = "/rest/user")
+@RequestMapping("/rest/user")
 public class UserController {
 
     private final UserService userService;

@@ -9,10 +9,12 @@ import com.amazonaws.services.sns.AmazonSNS;
 import com.amazonaws.services.sns.AmazonSNSClientBuilder;
 import com.google.gson.Gson;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 @Configuration
+@ComponentScan("mn.mosc.project")
 public class ServletContextConfig extends WebMvcConfigurationSupport {
 
     //-----------Default max error retry is - 3 times:
