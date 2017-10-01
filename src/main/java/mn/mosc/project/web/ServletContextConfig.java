@@ -17,7 +17,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import java.util.Locale;
 
 @Configuration
-@ComponentScan(basePackages = "mn.mosc.project", useDefaultFilters = true)
+@ComponentScan(basePackages = "mn.mosc.project")
 public class ServletContextConfig extends WebMvcConfigurationSupport {
 
     @Override

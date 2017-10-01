@@ -37,7 +37,7 @@ public class UserRepository {
     public User getUser(String id) {
         try {
             User partitionKey = new User();
-            partitionKey.setUserName(id);
+            partitionKey.setId(id);
 
             DynamoDBQueryExpression<User> queryExpression = new DynamoDBQueryExpression<User>()
                     .withHashKeyValues(partitionKey);
