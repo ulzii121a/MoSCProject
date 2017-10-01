@@ -2,6 +2,7 @@ package mn.mosc.project;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 import java.io.InputStream;
 import java.util.Properties;
