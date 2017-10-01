@@ -12,6 +12,8 @@ buildscript {
         classpath 'ru.shadam.gretty:gretty:+'
         classpath 'com.moowork.gradle:gradle-node-plugin:1.1.1'
         classpath "io.spring.gradle:dependency-management-plugin:1.0.3.RELEASE"
+
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.7.RELEASE")
     }
 }
 
@@ -23,9 +25,19 @@ dependencyManagement {
     }
 }
 
+ext {
+    startClass = 'mn.mosc.project.Application'
+    depotInfo = 'none'
+}
+
+apply plugin: 'idea'
+
+apply plugin: 'groovy'
+
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'war'
+apply plugin: 'org.springframework.boot'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -42,8 +54,7 @@ dependencies {
 
     compile group: 'commons-logging', name: 'commons-logging', version: '1.2'
 
-    compile group: 'org.springframework', name: 'spring-webmvc', version: '5.0.0.RELEASE'
-    compile group: 'org.springframework', name: 'spring-aspects', version: '5.0.0.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.7.RELEASE'
 
     compile group: 'org.primefaces', name: 'primefaces', version: '6.1'
 
@@ -52,4 +63,14 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
 
     testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+bootRun {
+    configure {
+        systemProperty "AWS_REGION", System.getProperty("AWS_REGION")
+        systemProperty "application.environment", "dev"
+        systemProperty "spring.profiles.active", "dev"
+        systemProperty "application.home", "."
+    }
+    jvmArgs = ["-Dproject.name=${project.name}", "-Dapplication.name=${project.name}", '-Dapplication.environment=dev', '-Dapplication.home=.', '-Xdebug', '-Xrunjdwp:server=y,transport=dt_socket,address=5005,suspend=n']
 }

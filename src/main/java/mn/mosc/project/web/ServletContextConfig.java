@@ -1,64 +1,46 @@
 package mn.mosc.project.web;
 
-import org.springframework.context.MessageSource;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.sns.AmazonSNS;
+import com.amazonaws.services.sns.AmazonSNSClientBuilder;
+import com.google.gson.Gson;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
-import java.util.Locale;
 
 @Configuration
-@ComponentScan(basePackages = "mn.mosc.project")
 public class ServletContextConfig extends WebMvcConfigurationSupport {
 
-    @Override
-    public RequestMappingHandlerMapping requestMappingHandlerMapping() {
-        final RequestMappingHandlerMapping requestMappingHandlerMapping = super.requestMappingHandlerMapping();
-        requestMappingHandlerMapping.setUseSuffixPatternMatch(false);
-        requestMappingHandlerMapping.setUseTrailingSlashMatch(false);
-        return requestMappingHandlerMapping;
+    //-----------Default max error retry is - 3 times:
+    @Bean
+    public AmazonS3 amazonS3() {
+        return AmazonS3ClientBuilder.defaultClient();
     }
 
-    @Override
-    protected void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("pages/index");
+    //-----------Default max error retry is - 3 times:
+    @Bean
+    public AmazonSNS amazonSNS() {
+        return AmazonSNSClientBuilder.defaultClient();
     }
 
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
+    //-----------Default max error retry is - 10 times:
+    @Bean
+    public DynamoDBMapper dynamoDBMapper() {
+        return new DynamoDBMapper(AmazonDynamoDBClientBuilder.defaultClient());
+    }
+
+    //-----------Default max error retry is - 10 times:
+    @Bean
+    public AmazonDynamoDB amazonDynamoDB() {
+        return AmazonDynamoDBClientBuilder.defaultClient();
     }
 
     @Bean
-    public LocaleResolver localeResolver() {
-        final SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-        localeResolver.setDefaultLocale(Locale.ENGLISH);
-        return localeResolver;
-    }
-
-    @Bean
-    public MessageSource messageSource() {
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename("messages");
-        messageSource.setDefaultEncoding("UTF-8");
-        messageSource.setFallbackToSystemLocale(true);
-        return messageSource;
-    }
-
-    @Bean
-    public ViewResolver viewResolver() {
-        final InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/WEB-INF/views/");
-        viewResolver.setSuffix(".jsp");
-        return viewResolver;
+    public Gson gson() {
+        return new Gson();
     }
 }
