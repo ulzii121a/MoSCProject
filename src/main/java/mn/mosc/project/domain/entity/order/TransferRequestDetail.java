@@ -1,18 +1,14 @@
 package mn.mosc.project.domain.entity.order;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBVersionAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
 /**
  * created by loya on 9/29/17
  */
-@DynamoDBTable(tableName = "ORDER_DETAIL")
-public class OrderDetail {
+@DynamoDBTable(tableName = "TRANSFER_REQUEST_DETAIL")
+public class TransferRequestDetail {
     private String id;
-    private String orderId;
+    private String transferRequestId;
     private String productId;
     private int quantity;
     private Double unitPrice;
@@ -27,16 +23,16 @@ public class OrderDetail {
         this.id = id;
     }
 
-    @DynamoDBRangeKey(attributeName = "orderId")
-    public String getOrderId() {
-        return orderId;
+    @DynamoDBRangeKey(attributeName = "transfer_request_id")
+    public String getTransferRequestId() {
+        return transferRequestId;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setTransferRequestId(String transferRequestId) {
+        this.transferRequestId = transferRequestId;
     }
 
-    @DynamoDBAttribute(attributeName = "productId")
+    @DynamoDBAttribute(attributeName = "product_id")
     public String getProductId() {
         return productId;
     }
@@ -54,7 +50,7 @@ public class OrderDetail {
         this.quantity = quantity;
     }
 
-    @DynamoDBAttribute(attributeName = "unitPrice")
+    @DynamoDBAttribute(attributeName = "unit_price")
     public Double getUnitPrice() {
         return unitPrice;
     }
@@ -74,9 +70,9 @@ public class OrderDetail {
 
     @Override
     public String toString() {
-        return "OrderDetail{" +
+        return "TransferRequestDetail{" +
                 "id='" + id + '\'' +
-                ", orderId='" + orderId + '\'' +
+                ", transferRequestId='" + transferRequestId + '\'' +
                 ", productId='" + productId + '\'' +
                 ", quantity=" + quantity +
                 ", unitPrice=" + unitPrice +
