@@ -61,4 +61,18 @@ public class UserController {
             return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @RequestMapping(value = "/auth", method = RequestMethod.POST)
+    public ResponseEntity<Boolean> login(@RequestBody String userName,
+                                         @RequestBody String pass) {
+        if (StringUtils.isBlank(userName) || StringUtils.isBlank(pass))
+            new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+
+        try {
+            boolean result = userService.login(userName, pass);
+            return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
