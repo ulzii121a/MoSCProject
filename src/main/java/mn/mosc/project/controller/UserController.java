@@ -34,6 +34,7 @@ public class UserController {
         headers = new HttpHeaders();
         headers.add("Access-Control-Allow-Origin", "*");
         headers.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        headers.add("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     }
 
     @RequestMapping(value = "/{userId}/getUser", method = RequestMethod.GET)
