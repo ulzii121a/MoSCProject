@@ -7,7 +7,7 @@ import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.model.ResourceNotFoundException;
 import com.amazonaws.util.CollectionUtils;
-import mn.mosc.project.domain.entity.order.Order;
+import mn.mosc.project.domain.entity.order.TransferRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,15 +28,15 @@ public class OrderRepository {
         this.dynamoDBClient = dynamoDBClient;
     }
 
-    public Order getOrder(String id) {
+    public TransferRequest getOrder(String id) {
         try {
-            Order partitionKey = new Order();
+            TransferRequest partitionKey = new TransferRequest();
             partitionKey.setId(id);
 
-            DynamoDBQueryExpression<Order> queryExpression = new DynamoDBQueryExpression<Order>()
+            DynamoDBQueryExpression<TransferRequest> queryExpression = new DynamoDBQueryExpression<TransferRequest>()
                     .withHashKeyValues(partitionKey);
 
-            List<Order> propertyUtils = dynamoDBMapper.query(Order.class, queryExpression);
+            List<TransferRequest> propertyUtils = dynamoDBMapper.query(TransferRequest.class, queryExpression);
 
             return CollectionUtils.isNullOrEmpty(propertyUtils) ? null : propertyUtils.get(0);
         } catch (ResourceNotFoundException resourceNotFoundException) {
@@ -49,12 +49,12 @@ public class OrderRepository {
         }
     }
 
-    public void putOrder(Order order) {
+    public void putOrder(TransferRequest transferRequest) {
         try {
-            dynamoDBMapper.save(order);
+            dynamoDBMapper.save(transferRequest);
         } catch (ResourceNotFoundException resourceNotFoundException) {
             createTable();
-            dynamoDBMapper.save(order);
+            dynamoDBMapper.save(transferRequest);
         } catch (Exception e) {
             String errorMessage = String.format("Exception in OrderAdapter.putOrder: %s", e.getMessage());
             System.err.println(errorMessage);
@@ -63,7 +63,7 @@ public class OrderRepository {
 
     private void createTable() {
         try {
-            CreateTableRequest req = dynamoDBMapper.generateCreateTableRequest(Order.class);
+            CreateTableRequest req = dynamoDBMapper.generateCreateTableRequest(TransferRequest.class);
             req.setProvisionedThroughput(new ProvisionedThroughput(dynamoDBInitialThroughput, dynamoDBInitialThroughput));
 
             dynamoDBClient.createTable(req);

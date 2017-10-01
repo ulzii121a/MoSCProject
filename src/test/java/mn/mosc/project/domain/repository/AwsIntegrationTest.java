@@ -7,8 +7,8 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import mn.mosc.project.domain.entity.authorization.User;
 import mn.mosc.project.domain.entity.inventory.Product;
-import mn.mosc.project.domain.entity.order.Order;
-import mn.mosc.project.domain.entity.order.OrderDetail;
+import mn.mosc.project.domain.entity.order.TransferRequest;
+import mn.mosc.project.domain.entity.order.TransferRequestDetail;
 import mn.mosc.project.domain.repository.authorization.UserRepository;
 import mn.mosc.project.domain.repository.inventory.ProductRepository;
 import mn.mosc.project.domain.repository.order.OrderDetailRepository;
@@ -73,21 +73,21 @@ public class AwsIntegrationTest {
 
     @Ignore
     public void getOrderDetail() {
-        OrderDetail orderDetail = orderDetailRepository.getOrderDetail("OrderDetail1");
-        System.out.println(orderDetail);
-        assertNotNull(orderDetail);
+        TransferRequestDetail transferRequestDetail = orderDetailRepository.getOrderDetail("OrderDetail1");
+        System.out.println(transferRequestDetail);
+        assertNotNull(transferRequestDetail);
     }
 
     @Ignore
     public void putOrderDetail() {
-        OrderDetail orderDetail = new OrderDetail();
-        orderDetail.setId("OrderDetail1");
-        orderDetail.setProductId("p1");
-        orderDetail.setOrderId("testOrder1");
-        orderDetail.setQuantity(1);
-        orderDetail.setUnitPrice(500d);
+        TransferRequestDetail transferRequestDetail = new TransferRequestDetail();
+        transferRequestDetail.setId("OrderDetail1");
+        transferRequestDetail.setProductId("p1");
+        transferRequestDetail.setOrderId("testOrder1");
+        transferRequestDetail.setQuantity(1);
+        transferRequestDetail.setUnitPrice(500d);
 
-        orderDetailRepository.putOrderDetail(orderDetail);
+        orderDetailRepository.putOrderDetail(transferRequestDetail);
     }
 
     @Ignore
@@ -108,9 +108,9 @@ public class AwsIntegrationTest {
 
     @Ignore
     public void getOrder() {
-        Order order = orderRepository.getOrder("testOrder1");
-        System.out.println(order);
-        assertNotNull(order);
+        TransferRequest transferRequest = orderRepository.getOrder("testOrder1");
+        System.out.println(transferRequest);
+        assertNotNull(transferRequest);
     }
 
     @Ignore
@@ -118,12 +118,12 @@ public class AwsIntegrationTest {
         Set<String> orderDetails = new HashSet<>();
         orderDetails.add("OrderDetail1");
 
-        Order order = new Order();
-        order.setId("testOrder1");
-        order.setOrderDate(new Date());
-        order.setUserId(userId);
-        order.setOrderDetailIds(orderDetails);
+        TransferRequest transferRequest = new TransferRequest();
+        transferRequest.setId("testOrder1");
+        transferRequest.setOrderDate(new Date());
+        transferRequest.setUserId(userId);
+        transferRequest.setOrderDetailIds(orderDetails);
 
-        orderRepository.putOrder(order);
+        orderRepository.putOrder(transferRequest);
     }
 }

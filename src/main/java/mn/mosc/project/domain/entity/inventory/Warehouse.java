@@ -8,25 +8,35 @@ import mn.mosc.project.domain.entity.address.Address;
  */
 @DynamoDBTable(tableName = "WAREHOUSE")
 public class Warehouse {
-    private String warehouseCode;
-    private Address address;
+    private String id;
+    private String addressId;
+    private Long version;
 
-    @DynamoDBHashKey(attributeName = "warehouseCode")
-    public String getWarehouseCode() {
-        return warehouseCode;
+    @DynamoDBHashKey(attributeName = "id")
+    public String getId() {
+        return id;
     }
 
-    public void setWarehouseCode(String warehouseCode) {
-        this.warehouseCode = warehouseCode;
+    public void setId(String id) {
+        this.id = id;
     }
 
     @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.M)
-    @DynamoDBAttribute(attributeName = "address")
-    public Address getAddress() {
-        return address;
+    @DynamoDBAttribute(attributeName = "addressId")
+    public String getAddressId() {
+        return addressId;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddressId(String address) {
+        this.addressId = addressId;
+    }
+
+    @DynamoDBVersionAttribute
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 }

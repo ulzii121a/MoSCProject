@@ -7,7 +7,7 @@ import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.model.ResourceNotFoundException;
 import com.amazonaws.util.CollectionUtils;
-import mn.mosc.project.domain.entity.order.OrderDetail;
+import mn.mosc.project.domain.entity.order.TransferRequestDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,33 +28,33 @@ public class OrderDetailRepository {
         this.dynamoDBClient = dynamoDBClient;
     }
 
-    public OrderDetail getOrderDetail(String id) {
+    public TransferRequestDetail getOrderDetail(String id) {
         try {
-            OrderDetail partitionKey = new OrderDetail();
+            TransferRequestDetail partitionKey = new TransferRequestDetail();
             partitionKey.setId(id);
 
-            DynamoDBQueryExpression<OrderDetail> queryExpression = new DynamoDBQueryExpression<OrderDetail>()
+            DynamoDBQueryExpression<TransferRequestDetail> queryExpression = new DynamoDBQueryExpression<TransferRequestDetail>()
                     .withHashKeyValues(partitionKey);
 
-            List<OrderDetail> propertyUtils = dynamoDBMapper.query(OrderDetail.class, queryExpression);
+            List<TransferRequestDetail> propertyUtils = dynamoDBMapper.query(TransferRequestDetail.class, queryExpression);
 
             return CollectionUtils.isNullOrEmpty(propertyUtils) ? null : propertyUtils.get(0);
         } catch (ResourceNotFoundException resourceNotFoundException) {
             createTable();
             return null;
         } catch (Exception e) {
-            String errorMessage = String.format("Exception in OrderDetailAdapter.getOrderDetail: %s", e.getMessage());
+            String errorMessage = String.format("Exception in OrderDetailAdapter.getTransferRequestDetail: %s", e.getMessage());
             System.err.println(errorMessage);
             return null;
         }
     }
 
-    public void putOrderDetail(OrderDetail orderDetail) {
+    public void putOrderDetail(TransferRequestDetail transferRequestDetail) {
         try {
-            dynamoDBMapper.save(orderDetail);
+            dynamoDBMapper.save(transferRequestDetail);
         } catch (ResourceNotFoundException resourceNotFoundException) {
             createTable();
-            dynamoDBMapper.save(orderDetail);
+            dynamoDBMapper.save(transferRequestDetail);
         } catch (Exception e) {
             String errorMessage = String.format("Exception in OrderDetailAdapter.putOrderDetail: %s", e.getMessage());
             System.err.println(errorMessage);
@@ -63,7 +63,7 @@ public class OrderDetailRepository {
 
     private void createTable() {
         try {
-            CreateTableRequest req = dynamoDBMapper.generateCreateTableRequest(OrderDetail.class);
+            CreateTableRequest req = dynamoDBMapper.generateCreateTableRequest(TransferRequestDetail.class);
             req.setProvisionedThroughput(new ProvisionedThroughput(dynamoDBInitialThroughput, dynamoDBInitialThroughput));
 
             dynamoDBClient.createTable(req);
