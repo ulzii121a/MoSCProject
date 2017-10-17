@@ -35,10 +35,10 @@ public class ProductService {
         }
     }
 
-    public List<Product> getProducts(){
+    public List<Product> getProducts() {
         try {
             return productRepository.getProducts();
-        } catch (Exception e){
+        } catch (Exception e) {
             LOGGER.error(String.format("Exception in ProductService.getProduct: %s", e.getMessage(), e));
             throw new RuntimeException(e);
         }
@@ -46,8 +46,8 @@ public class ProductService {
 
     public Product addProduct(Product product) {
         Validate.notNull(product, "Product should not be Null!");
-        Validate.notBlank(product.getId(),"Product ID should not be Null!");
-        Validate.notBlank(product.getProductName(),"Product Name should not be Null!");
+        Validate.notBlank(product.getId(), "Product ID should not be Null!");
+        Validate.notBlank(product.getProductName(), "Product Name should not be Null!");
 
         try {
             productRepository.putProduct(product);
