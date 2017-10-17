@@ -39,6 +39,7 @@ public class ProductService {
         try {
             return productRepository.getProducts();
         } catch (Exception e) {
+
             LOGGER.error(String.format("Exception in ProductService.getProduct: %s", e.getMessage(), e));
             throw new RuntimeException(e);
         }

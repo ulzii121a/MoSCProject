@@ -67,7 +67,7 @@ public class UserController {
             new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
 
         try {
-            boolean result = userService.login(userName, pass);
+            boolean result = userService.auth(userName, pass);
             return new ResponseEntity<>(new UserControllerResponse(result), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new UserControllerResponse("Internal Service error!"), HttpStatus.INTERNAL_SERVER_ERROR);
