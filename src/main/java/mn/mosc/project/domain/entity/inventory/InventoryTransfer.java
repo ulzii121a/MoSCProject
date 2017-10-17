@@ -1,7 +1,6 @@
 package mn.mosc.project.domain.entity.inventory;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
-import mn.mosc.project.domain.entity.order.TransferRequestDetail;
 
 import java.util.Date;
 

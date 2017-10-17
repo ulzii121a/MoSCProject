@@ -1,21 +1,18 @@
-package mn.mosc.project.controller;
+package mn.mosc.project.controller.authorization;
 
-import mn.mosc.project.controller.entity.UserControllerResponse;
 import mn.mosc.project.domain.entity.authorization.User;
-import mn.mosc.project.domain.service.UserService;
+import mn.mosc.project.domain.service.authorization.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**
  * created by ubulgan on 9/30/17

@@ -21,7 +21,7 @@ import java.security.SecureRandom;
 @Component
 public class Encryption {
 
-    private static final String SALT = "MOSC";
+    private static final String SALT = "M0SC";
 
     public String encrypt(String word) throws Exception {
         SecureRandom random = new SecureRandom();

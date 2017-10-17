@@ -1,4 +1,4 @@
-package mn.mosc.project.domain.entity.order;
+package mn.mosc.project.domain.entity.transfer;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 

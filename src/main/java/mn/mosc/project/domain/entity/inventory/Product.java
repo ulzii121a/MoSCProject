@@ -18,6 +18,7 @@ public class Product {
     private String picturePath;
     private String categoryId;
     private Map<String, String> attrs;
+    private String userId;
     private Long version;
 
     @DynamoDBHashKey(attributeName = "id")
@@ -29,13 +30,22 @@ public class Product {
         this.id = id;
     }
 
-    @DynamoDBAttribute(attributeName = "productName")
+    @DynamoDBAttribute(attributeName = "product_name")
     public String getProductName() {
         return productName;
     }
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    @DynamoDBAttribute(attributeName = "user_id")
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @DynamoDBAttribute(attributeName = "weight")
@@ -74,7 +84,7 @@ public class Product {
         this.length = length;
     }
 
-    @DynamoDBAttribute(attributeName = "picturePath")
+    @DynamoDBAttribute(attributeName = "picture_path")
     public String getPicturePath() {
         return picturePath;
     }
@@ -83,7 +93,7 @@ public class Product {
         this.picturePath = picturePath;
     }
 
-    @DynamoDBAttribute(attributeName = "categoryId")
+    @DynamoDBAttribute(attributeName = "category_id")
     public String getCategoryId() {
         return categoryId;
     }
