@@ -1,4 +1,4 @@
-package mn.mosc.project.domain.service;
+package mn.mosc.project.domain.service.authorization;
 
 import mn.mosc.project.domain.entity.authorization.User;
 import mn.mosc.project.domain.repository.authorization.UserRepository;

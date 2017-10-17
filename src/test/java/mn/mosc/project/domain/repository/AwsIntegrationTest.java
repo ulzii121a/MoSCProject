@@ -7,12 +7,12 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import mn.mosc.project.domain.entity.authorization.User;
 import mn.mosc.project.domain.entity.inventory.Product;
-import mn.mosc.project.domain.entity.order.TransferRequest;
-import mn.mosc.project.domain.entity.order.TransferRequestDetail;
+import mn.mosc.project.domain.entity.transfer.TransferRequest;
+import mn.mosc.project.domain.entity.transfer.TransferRequestDetail;
 import mn.mosc.project.domain.repository.authorization.UserRepository;
 import mn.mosc.project.domain.repository.inventory.ProductRepository;
-import mn.mosc.project.domain.repository.order.TransferRequestDetailRepository;
-import mn.mosc.project.domain.repository.order.TransferRequestRepository;
+import mn.mosc.project.domain.repository.transfer.TransferRequestDetailRepository;
+import mn.mosc.project.domain.repository.transfer.TransferRequestRepository;
 import org.junit.Before;
 import org.junit.Ignore;
 

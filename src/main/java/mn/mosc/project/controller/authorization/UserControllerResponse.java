@@ -1,4 +1,4 @@
-package mn.mosc.project.controller.entity;
+package mn.mosc.project.controller.authorization;
 
 import mn.mosc.project.domain.entity.authorization.User;
 import org.apache.commons.lang3.StringUtils;
