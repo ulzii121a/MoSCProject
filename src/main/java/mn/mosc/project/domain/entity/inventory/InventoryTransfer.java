@@ -1,6 +1,10 @@
 package mn.mosc.project.domain.entity.inventory;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.*;
+
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBVersionAttribute;
 
 import java.util.Date;
 
